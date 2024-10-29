@@ -23,16 +23,16 @@ pipeline {
             }
         }
 
-        // stage('SonarQube Analysis') {
-        //     steps {
-        //         script {
-        //             // Run SonarQube analysis
-        //             withSonarQubeEnv('SonarQube') {
-        //                 sh 'mvn sonar:sonar'
-        //             }
-        //         }
-        //     } 
-        // }
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    // Run SonarQube analysis
+                    withSonarQubeEnv('SonarQube') {
+                        sh 'mvn sonar:sonar'
+                    }
+                }
+            } 
+        }
 
         stage('Build Docker Image') {
             steps {
