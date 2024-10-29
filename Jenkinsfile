@@ -7,13 +7,13 @@ pipeline {
 
     environment {
         DOCKER_CREDENTIALS_ID = 'dockerhub-credentials'
-        IMAGE_NAME = 'your-docker-username/spring-boot-app'
+        IMAGE_NAME = 'jalalhamdane/spring-boot-app'
     }
 
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/your-username/your-repo.git'
+                git branch: 'main', url: 'https://github.com/Jalal-Hamdane/java-app.git'
             }
         }
 
@@ -23,16 +23,16 @@ pipeline {
             }
         }
 
-        stage('SonarQube Analysis') {
-            steps {
-                script {
-                    // Run SonarQube analysis
-                    withSonarQubeEnv('SonarQube') {
-                        sh 'mvn sonar:sonar'
-                    }
-                }
-            }
-        }
+        // stage('SonarQube Analysis') {
+        //     steps {
+        //         script {
+        //             // Run SonarQube analysis
+        //             withSonarQubeEnv('SonarQube') {
+        //                 sh 'mvn sonar:sonar'
+        //             }
+        //         }
+        //     } 
+        // }
 
         stage('Build Docker Image') {
             steps {
@@ -54,12 +54,12 @@ pipeline {
             }
         }
 
-        stage('Deploy to Kubernetes') {
-            steps {
-                script {
-                    sh 'kubectl apply -f k8s/deployment.yaml'
-                }
-            }
-        }
+        // stage('Deploy to Kubernetes') {
+        //     steps {
+        //         script {
+        //             sh 'kubectl apply -f k8s/deployment.yaml'
+        //         }
+        //     }
+        /// }
     }
 }
