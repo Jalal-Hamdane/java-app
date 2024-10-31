@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-java-app-service
+  labels:
+    app: my-java-app
+spec:
+  type: ClusterIP  # Use ClusterIP for internal access only
+  ports:
+    - port: 80       # External port
+      targetPort: 8080  # Application's container port
+  selector:
+    app: my-java-app
