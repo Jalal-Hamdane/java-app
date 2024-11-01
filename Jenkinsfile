@@ -5,10 +5,10 @@ pipeline {
         maven 'Maven'
     }
 
-    // environment {
-    //     DOCKER_CREDENTIALS_ID = 'dockerhub-credentials'
-    //     IMAGE_NAME = 'jalalhamdane/spring-boot-app'
-    // }
+    environment {
+        DOCKER_CREDENTIALS_ID = 'dockerhub-credentials'
+        IMAGE_NAME = 'jalalhamdane/spring-boot-app'
+    }
 
     stages {
         stage('Clone Repository') {
@@ -31,7 +31,7 @@ pipeline {
         //                 sh 'mvn sonar:sonar'
         //             }
         //         }
-        //     } 
+        //     }
         // }
 
         // stage('Build Docker Image') {
@@ -56,9 +56,19 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-                sh 'kubectl apply -f k8s/deployment.yaml'
+                withCredentials([file(credentialsId: 'k8s_kubeconfig', variable: 'KUBECONFIG')]) {
+                    sh 'kubectl apply -f k8s/deployment.yaml'
+                }
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed.'
         }
     }
 }
