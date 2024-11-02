@@ -18,7 +18,7 @@ spec:
         - name: my-java-app
           image: jalalhamdane/spring-boot-app:latest  # Replace with your Docker image name
           ports:
-            - containerPort: 8080  # Application port
+            - containerPort: 9002  # Application port
           resources:
             requests:
               memory: "512Mi"
@@ -41,7 +41,7 @@ metadata:
 spec:
   type: ClusterIP  # Use ClusterIP for internal access only
   ports:
-    - port: 80       # External port
-      targetPort: 8080  # Application's container port
+    - port: 9002      # External port
+      targetPort: 9002 # Application's container port
   selector:
     app: my-java-app
